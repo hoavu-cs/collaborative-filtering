@@ -6,9 +6,7 @@
 #include <map>
 #include <vector>
 #include <sstream>
-#include <utility> 
 #include <algorithm>
-#include <chrono> 
 #include "CollaborativeFiltering.h"
 
 static std::default_random_engine engine(std::random_device{}());
@@ -74,9 +72,9 @@ int main() {
     std::string line;
     std::map<std::pair<int, int>, double> train_set, test_set;
     
-    int k = 10; // number of latent dimensions
-    int n = 210000; // upper bound for number of items
-    int m = 170000; // upper bound number of users
+    int k = 15; // number of latent dimensions
+    int n = 250000; // upper bound for number of items
+    int m = 165000; // upper bound number of users
     
     double lambda = 1e-3; // regularization parameter
     double eta = 1e-4; // learning rate
@@ -109,8 +107,8 @@ int main() {
         else if (prediction > 5) 
             prediction = 5;
 
-        mae += abs(x.second - prediction);
-        mae_3 += abs(x.second - 3);
+        mae += fabs(x.second - prediction);
+        mae_3 += fabs(x.second - 3);
     }
 
     mae /= test_set.size();
